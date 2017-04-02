@@ -27,14 +27,14 @@ public class linkGenerator : MonoBehaviour {
     {
         Debug.Log("making link");
 
-        truckingData.pickUpInfo.stateIndex = (System.Array.IndexOf(P_stateMenu.startingItemList, P_stateMenu.selectedTextMesh.text));
-        truckingData.pickUpInfo.cityIndex = (System.Array.IndexOf(P_cityMenu.startingItemList, P_cityMenu.selectedTextMesh.text));
+        //truckingData.pickUpInfo.stateIndex = (System.Array.IndexOf(P_stateMenu.startingItemList, P_stateMenu.selectedTextMesh.text));
+        //truckingData.pickUpInfo.cityIndex = (System.Array.IndexOf(P_cityMenu.startingItemList, P_cityMenu.selectedTextMesh.text));
 
 
 
 
-        truckingData.dropOffInfo.stateIndex = (System.Array.IndexOf(D_stateMenu.startingItemList, D_stateMenu.selectedTextMesh.text));
-        truckingData.dropOffInfo.cityIndex = (System.Array.IndexOf(D_cityMenu.startingItemList, D_cityMenu.selectedTextMesh.text));
+        //truckingData.dropOffInfo.stateIndex = (System.Array.IndexOf(D_stateMenu.startingItemList, D_stateMenu.selectedTextMesh.text));
+        //truckingData.dropOffInfo.cityIndex = (System.Array.IndexOf(D_cityMenu.startingItemList, D_cityMenu.selectedTextMesh.text));
     }
 
 }
