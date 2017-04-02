@@ -8,6 +8,11 @@ using System.Collections.Generic;
 [AddComponentMenu("2D Toolkit/UI/tk2dUIDropDownMenu")]
 public class tk2dUIDropDownMenu : MonoBehaviour
 {
+
+    public Transform scrollableParent;
+    public GameObject scrollAreaVisual;
+
+    public tk2dUIScrollableArea scrollArea;
     /// <summary>
     /// Button that controls, dropdown list from appearing
     /// </summary>
@@ -28,6 +33,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
     /// Template for each drop down item. Will be cloned.
     /// </summary>
     public tk2dUIDropDownItem dropDownItemTemplate;
+
 
     /// <summary>
     /// List all all the text for the dropdown list
@@ -241,7 +247,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
     {
         GameObject go = Instantiate(dropDownItemTemplate.gameObject) as GameObject;
         go.name = "DropDownItem";
-        go.transform.parent = transform;
+        go.transform.parent = scrollableParent;
         go.transform.localPosition = dropDownItemTemplate.transform.localPosition;
         go.transform.localRotation = dropDownItemTemplate.transform.localRotation;
         go.transform.localScale = dropDownItemTemplate.transform.localScale;
@@ -298,6 +304,8 @@ public class tk2dUIDropDownMenu : MonoBehaviour
 #endif
         }
 
+        scrollAreaVisual.SetActive(true);
+
         tk2dUIDropDownItem selectedItem = dropDownItems[index];
 
         if (selectedItem.upDownHoverBtn != null)
@@ -309,6 +317,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
     //collapses list on selecting item or closing
     private void CollapseList()
     {
+        scrollAreaVisual.SetActive(false);
         isExpanded = false;
         foreach (tk2dUIDropDownItem item in dropDownItems)
         {
