@@ -93,7 +93,7 @@ MonoBehaviour:
     m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 0
+    m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: DEBUG
@@ -166,7 +166,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: V0.03
+  m_Text: V0.08
 --- !u!114 &114703408305384236
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -182,10 +182,10 @@ MonoBehaviour:
   DebugOnOfficial: 1
   SendToConsole: 1
   DisableOnScreen: 0
-  ClearTime: 3
+  ClearTime: 60
   Clear: 0
-  ClearAmount: 2
-  ClearAll: 0
+  ClearAmount: 1
+  ClearAll: 1
 --- !u!222 &222106227136992656
 CanvasRenderer:
   m_ObjectHideFlags: 1
@@ -205,7 +205,7 @@ Canvas:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1310215022326026}
   m_Enabled: 1
-  serializedVersion: 2
+  serializedVersion: 3
   m_RenderMode: 0
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
@@ -214,6 +214,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
+  m_AdditionalShaderChannelsFlag: 1
   m_SortingLayerID: 0
   m_SortingOrder: 100
   m_TargetDisplay: 0
@@ -250,9 +251,9 @@ RectTransform:
   m_Father: {fileID: 224023076439368050}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 359.49997, y: -283.5}
+  m_AnchorMin: {x: 1, y: 0}
+  m_AnchorMax: {x: 1, y: 0}
+  m_AnchoredPosition: {x: -40.5, y: 16.499985}
   m_SizeDelta: {x: 81, y: 33}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224910871180615356

@@ -16,6 +16,8 @@ public class CBUG : MonoBehaviour {
     public bool DebugOnOfficial;
     public bool SendToConsole;
     public bool DisableOnScreen;
+    [Tooltip("0 = Never Clear.")]
+    [Range(0f, int.MaxValue)]
     public float ClearTime;
     public bool Clear;
     public int ClearAmount;
