@@ -893,9 +893,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1dd8695f7fb5c4d959e149ba0c967a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scrollableParent: {fileID: 0}
-  scrollAreaVisual: {fileID: 0}
-  scrollArea: {fileID: 0}
   dropDownButton: {fileID: 11400000}
   selectedTextMesh: {fileID: 11400028}
   height: 0.138
