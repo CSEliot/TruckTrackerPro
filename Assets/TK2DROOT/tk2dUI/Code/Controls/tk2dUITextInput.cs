@@ -12,6 +12,10 @@ using System.Collections;
 [AddComponentMenu("2D Toolkit/UI/tk2dUITextInput")]
 public class tk2dUITextInput : MonoBehaviour
 {
+
+    //Usually 0, you're gonna need to cast string to int and clear if its not a number
+    public int minNum;
+    public int maxNum;
     /// <summary>
     /// UItem that will make cause TextInput to become selected on click
     /// </summary>

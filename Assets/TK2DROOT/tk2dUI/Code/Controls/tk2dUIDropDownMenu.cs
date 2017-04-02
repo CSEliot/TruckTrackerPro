@@ -40,7 +40,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
     /// </summary>
     [SerializeField] 
 #pragma warning disable 649
-    public string[] startingItemList;
+    public List<string> startingItemList;
 #pragma warning restore 649
 	
     /// <summary>
@@ -304,7 +304,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
 #endif
         }
 
-        scrollArea.ContentLength = height * (startingItemList.Length + 1);
+        scrollArea.ContentLength = height * (startingItemList.Count + 1);
         scrollAreaVisual.SetActive(true);
 
         tk2dUIDropDownItem selectedItem = dropDownItems[index];
