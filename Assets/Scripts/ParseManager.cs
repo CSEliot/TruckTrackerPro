@@ -70,7 +70,8 @@ public class ParseManager : MonoBehaviour {
         }
     }
 
-    private Dictionary<int, string> stateCodeToName;
+    private Dictionary<string, int> StateNameToID;
+    private Dictionary<string, int> StateAbbrToID;
     private List<City>[] cityDataByState;
 
 	// Use this for initialization
@@ -87,7 +88,8 @@ public class ParseManager : MonoBehaviour {
         fillArrayWithClass<List<City>>(ref cityDataByState);
         engine_CityData = new FileHelperEngine<CityData>();
         engine_StateData = new FileHelperEngine<StateData>();
-        stateCodeToName = new Dictionary<int, string>();
+        StateNameToID = new Dictionary<string, int>();
+        StateAbbrToID = new Dictionary<string, int>();
         if (Application.isEditor)
         {
             _cityData = engine_CityData.ReadFile(cityCSVPath);
@@ -160,9 +162,13 @@ public class ParseManager : MonoBehaviour {
     private List<string> _getCities(string state, bool isAbbreviation)
     {
         List<string> cities = new List<string>();
-        for(int x = 0; x < cityDataByState.Length; x++)
+        int stateNum = isAbbreviation ? StateAbbrToID[state] : StateNameToID[state];
+        for (int x = 0; x < cityDataByState[stateNum].Count; x++)
         {
-
+            if (isAbbreviation)
+                cities.Add(cityDataByState[stateNum][x].CityName);
+            else
+                cities.Add(cityDataByState[stateNum][x].CityName);
         }
         return cities;
     }
@@ -224,6 +230,8 @@ public class ParseManager : MonoBehaviour {
             );
             if (_cityData[currentCity].State != _stateData[currentState].State)
             {
+                StateNameToID.Add(_stateData[currentState].State, _stateData[currentState].ID);
+                StateNameToID.Add(_stateData[currentState].StateAbbreviation, _stateData[currentState].ID);
                 currentState++;
             }
             if (currentState >= TotalStates || currentCity >= _cityData.Length - 1)
