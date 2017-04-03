@@ -14,6 +14,7 @@ public class tk2dUITextInput : MonoBehaviour
 {
 
     //Usually 0, you're gonna need to cast string to int and clear if its not a number
+    public bool checkNum;
     public int minNum;
     public int maxNum;
     /// <summary>
@@ -231,6 +232,7 @@ public class tk2dUITextInput : MonoBehaviour
 		{
 			layoutItem.OnReshape -= LayoutReshaped;
 		}
+
     }
 
     public void SetFocus()
@@ -251,6 +253,8 @@ public class tk2dUITextInput : MonoBehaviour
         }
         else if (IsFocus && !focus) {
             InputDeselected();
+
+
         }
     }
 
@@ -406,6 +410,48 @@ public class tk2dUITextInput : MonoBehaviour
 
     private void InputDeselected()
     {
+        Debug.Log("gotcha");
+
+        if (checkNum)
+        {
+            int Tnumber;
+
+            if (int.TryParse(inputLabel.text, out Tnumber))
+            {
+                if (Tnumber > maxNum)
+                {
+                    Text = maxNum.ToString();
+
+                }
+                else if (Tnumber < minNum)
+                {
+                    if (Tnumber < 10)
+                    {
+                        Text = "0" + Tnumber;
+                    }
+                    else
+                    {
+                        Text = minNum.ToString();
+                    }
+                    
+                }
+
+                else if (Tnumber < 10)
+                {
+                    Text = "0" + Tnumber;
+                }
+            }
+            else
+            {
+                Debug.Log("this isnt a number");
+                Text = "";
+  
+            }
+
+            
+
+        }
+
         if (text.Length == 0)
         {
             ShowDisplayText();

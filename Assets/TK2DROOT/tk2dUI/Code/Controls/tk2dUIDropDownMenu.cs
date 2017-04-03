@@ -8,6 +8,10 @@ using System.Collections.Generic;
 [AddComponentMenu("2D Toolkit/UI/tk2dUIDropDownMenu")]
 public class tk2dUIDropDownMenu : MonoBehaviour
 {
+    public bool truckNoty;
+  
+    public bool stateNotifier;
+    public GameObject LoadStateObj;
 
     public Transform scrollableParent;
     public GameObject scrollAreaVisual;
@@ -239,7 +243,18 @@ public class tk2dUIDropDownMenu : MonoBehaviour
         if (SendMessageTarget != null && SendMessageOnSelectedItemChangeMethodName.Length > 0)
         {
             SendMessageTarget.SendMessage( SendMessageOnSelectedItemChangeMethodName, this, SendMessageOptions.RequireReceiver );
-        }  
+        }
+
+        if (stateNotifier)
+        {
+            LoadStateObj.SendMessage("LoadCities");
+        }
+
+        if (truckNoty)
+        {
+            LoadStateObj.SendMessage("TruckSwap", index + 1);
+        }
+        
     }
 
     //clones another dropdown item from template

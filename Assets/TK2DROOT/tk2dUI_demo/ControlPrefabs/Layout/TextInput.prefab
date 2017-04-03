@@ -581,6 +581,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 488a196572c4fa54ab8eb067439a798e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkNum: 0
+  minNum: 0
+  maxNum: 0
   selectionBtn: {fileID: 11400006}
   inputLabel: {fileID: 11400010}
   emptyDisplayLabel: {fileID: 11400014}

@@ -900,6 +900,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1c1dd8695f7fb5c4d959e149ba0c967a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  truckNoty: 0
+  stateNotifier: 0
+  LoadStateObj: {fileID: 0}
   scrollableParent: {fileID: 0}
   scrollAreaVisual: {fileID: 0}
   scrollArea: {fileID: 0}

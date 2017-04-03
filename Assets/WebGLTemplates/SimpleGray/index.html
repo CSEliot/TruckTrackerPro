@@ -1,20 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en-us">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Unity WebGL Player | %UNITY_WEB_NAME%</title>
+    <link rel="shortcut icon" href="TemplateData/favicon.ico">
     <link rel="stylesheet" href="TemplateData/style.css">
-    <link rel="shortcut icon" href="TemplateData/favicon.ico" />
-    <script src="TemplateData/UnityProgress.js"></script>
+    <script src="TemplateData/UnityProgress.js"></script>  
+    <script src="%UNITY_WEBGL_LOADER_URL%"></script>
+    <script>
+      var gameInstance = UnityLoader.instantiate("gameContainer", "%UNITY_WEBGL_BUILD_URL%", {onProgress: UnityProgress});
+    </script>
   </head>
-  <body class="template">
-    <p class="header"><span>Unity WebGL Player | </span>%UNITY_WEB_NAME%</p>
-    <div class="template-wrap clear">
-    <canvas class="emscripten" id="canvas" oncontextmenu="event.preventDefault()" height="%UNITY_HEIGHT%px" width="%UNITY_WIDTH%px"></canvas>
+  <body>
+    <div class="webgl-content">
+      <div id="gameContainer" style="width: %UNITY_WIDTH%px; height: %UNITY_HEIGHT%px"></div>
       
     </div>
-    
-    %UNITY_WEBGL_LOADER_GLUE%
   </body>
 </html>

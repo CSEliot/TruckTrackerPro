@@ -4,17 +4,17 @@ using UnityEngine;
 [System.Serializable]
 public class Location {
 
-    public int stateIndex;
-    public int cityIndex;
+    public string state;
+    public string city;
 
-    public int dateMonth;
-    public int dateDay;
-    public int dateYear;
+    public string dateMonth;
+    public string dateDay;
+    public string dateYear;
 
     //1 - 12
-    public int timeHour;
+    public string timeHour;
     //0-59
-    public int timeMin;
+    public string timeMin;
     //true = am, false = pm
     public bool isAM;
 

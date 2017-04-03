@@ -9,7 +9,16 @@ public class linkGenerator : MonoBehaviour {
     public TruckData truckingData;
 
 
+
+
     //References:
+
+    //TRuck Start REFs
+    public tk2dUIDropDownMenu T_stateMenu;
+    public tk2dUIDropDownMenu T_cityMenu;
+
+
+
     //PICK UP REFs
     public tk2dUIDropDownMenu P_stateMenu;
     public tk2dUIDropDownMenu P_cityMenu;
