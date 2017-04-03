@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/// Programmer: Eliot Carney-Seim
+/// Date: April 3rd, 2017
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -147,8 +149,8 @@ public class URLLoader : MonoBehaviour {
             newPoints.Add(new DataPoint(
                 newURL.Substring(x * dataPointLength, t.TimeLength),
                 newURL.Substring(x * dataPointLength + t.TimeLength, t.CityCodeLength),
-                newURL.Substring(x * dataPointLength + t.CityCodeLength, t.StateCodeLength),
-                newURL.Substring(x * dataPointLength + t.StateCodeLength, t.TruckIDLength)
+                newURL.Substring(x * dataPointLength + t.TimeLength + t.CityCodeLength, t.StateCodeLength),
+                newURL.Substring(x * dataPointLength + t.TimeLength + t.CityCodeLength + t.StateCodeLength, t.TruckIDLength)
                 )
             );
         }

@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿/// Programmer: Eliot Carney-Seim
+/// Date: April 3rd, 2017
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FileHelpers;
@@ -82,7 +84,6 @@ public class ParseManager : MonoBehaviour {
         stateCSVPath = System.IO.Path.Combine(rootPath, StateCSV);
         //for testing:
         //Application.ExternalEval("window.open('" + stateCSVPath + "');");
-        //
         CBUG.Do("StateCSVPath: " + stateCSVPath);
         cityDataByState = new List<City>[TotalStates];
         fillArrayWithClass<List<City>>(ref cityDataByState);
