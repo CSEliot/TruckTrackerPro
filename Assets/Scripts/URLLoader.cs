@@ -17,7 +17,7 @@ using UnityEngine;
 /// </summary>
 public class URLLoader : MonoBehaviour {
 
-    public string RootURL; //Sample: http://trucktracker.com/app/
+    public string RootURL; //Sample: http://paultproductions.com/trackerS2/
     public static string URL; //Order: [date1][citycode1][statecode1][truckid1]...[dateX][citycodeX][statecodeX][truckidX]
     //Example: trucktracker.com/app/?0401172340167345005987004021700401673451069870
     // From April 1st, 2017 @ 2340, City 1673450, State 05, Truck ID 9870

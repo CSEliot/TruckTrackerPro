@@ -99,7 +99,8 @@ public class ParseManager : MonoBehaviour {
         }
         else
         {
-            //"http://kitelion.me/Test/ParsingTest_/StreamingAssets/IDToCityToState.csv"
+                
+            //"http://paultproductions.com/trackerS2/StreamingAssets/IDToCityToState.csv"
             StartCoroutine(loadCityDataWeb(cityCSVPath));
             StartCoroutine(loadStateDataWeb(stateCSVPath));
         }
