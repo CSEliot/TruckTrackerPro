@@ -17,8 +17,14 @@ public class LoadStatesAndCities : MonoBehaviour
     {
         //List<string> stringy = new List<string>();
         //stringy.Add("ahhah");
-        SetStates(ParseManager.GetStates(false));
+        //Invoke("DoStates", 1f);
+        
         //SetStates(stringy);
+    }
+
+    void DoStates()
+    {
+        SetStates(ParseManager.GetStates(false));
     }
 
     public void SetStates(List<string> allStates)
