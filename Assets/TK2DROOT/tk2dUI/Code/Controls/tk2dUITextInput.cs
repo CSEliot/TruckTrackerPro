@@ -448,7 +448,7 @@ public class tk2dUITextInput : MonoBehaviour
   
             }
 
-            
+            SendMessageTarget.SendMessage(SendMessageOnTextChangeMethodName, this, SendMessageOptions.RequireReceiver);
 
         }
 

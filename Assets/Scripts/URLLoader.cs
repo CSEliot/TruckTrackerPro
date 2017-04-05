@@ -25,9 +25,22 @@ public class URLLoader : MonoBehaviour {
     // To April 2nd, 2017 @ 0040, City 1673451, State 06, Truck ID 9870
     public string TestURL;
 
+
+    [System.Serializable]
+    public class OneSetData
+    {
+        //0,1,2
+        public string trailerType;
+        public string status;
+
+    }
+
+    [System.Serializable]
     public struct DataPoint
     {
+        
         public string TruckID;
+        //Date then Time
         public string Time;
         public string CityCode;
         public string StateCode;

@@ -247,7 +247,7 @@ public class tk2dUIDropDownMenu : MonoBehaviour
 
         if (stateNotifier)
         {
-            LoadStateObj.SendMessage("LoadCities");
+            //LoadStateObj.SendMessage("LoadCities");
         }
 
         if (truckNoty)

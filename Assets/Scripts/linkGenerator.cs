@@ -2,33 +2,53 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class linkGenerator : MonoBehaviour {
+public class linkGenerator : URLLoader
+{
+
+
+
+    public DataPoint dispPt;
+    public DataPoint startPt;
+    public DataPoint endPt;
+
 
     //This script has a reference to all set able values and converts it to a link string (?&..) 
+    [System.Serializable]
+    public class PointRef
+    {
+        public tk2dUIDropDownMenu stateMenu;
+        public tk2dUIDropDownMenu cityMenu;
 
-    public TruckData truckingData;
+        public tk2dUITextInput date_month;
+        public tk2dUITextInput date_day;
+        public tk2dUITextInput date_year;
 
-
-
-
+        public tk2dUITextInput time_hour;
+        public tk2dUITextInput time_min;
+        public tk2dUIDropDownMenu amPm;
+    }
     //References:
 
+
+
+    public tk2dUIDropDownMenu truckType;
+    public tk2dUIDropDownMenu statusStage;
+
     //TRuck Start REFs
-    public tk2dUIDropDownMenu T_stateMenu;
-    public tk2dUIDropDownMenu T_cityMenu;
+    public OneSetData otherData;
+       
 
-
-
-    //PICK UP REFs
-    public tk2dUIDropDownMenu P_stateMenu;
-    public tk2dUIDropDownMenu P_cityMenu;
-
-
+    public PointRef DispatchRef;
 
 
     //PICK UP REFs
-    public tk2dUIDropDownMenu D_stateMenu;
-    public tk2dUIDropDownMenu D_cityMenu;
+    public PointRef PickupRef;
+
+
+
+
+    //Drop off REFs
+    public PointRef DropoffRef;
 
 
 
@@ -36,14 +56,95 @@ public class linkGenerator : MonoBehaviour {
     {
         Debug.Log("making link");
 
-        //truckingData.pickUpInfo.stateIndex = (System.Array.IndexOf(P_stateMenu.startingItemList, P_stateMenu.selectedTextMesh.text));
-        //truckingData.pickUpInfo.cityIndex = (System.Array.IndexOf(P_cityMenu.startingItemList, P_cityMenu.selectedTextMesh.text));
+       //dispPt.Time = 
 
+        
+        //URLLoader.DataPoint StartPoint = new DataPoint(mylabel, mytime, mycitycode, mystatecode);
 
+        //URLLoader.DataPoint EndPoint = new DataPoint(mylabel, mytime, mycitycode, mystatecode);
+        URLLoader.BuildURL(dispPt, startPt, endPt);
+        //URLLoader.BuildURL
 
-
-        //truckingData.dropOffInfo.stateIndex = (System.Array.IndexOf(D_stateMenu.startingItemList, D_stateMenu.selectedTextMesh.text));
-        //truckingData.dropOffInfo.cityIndex = (System.Array.IndexOf(D_cityMenu.startingItemList, D_cityMenu.selectedTextMesh.text));
+            //DataPoint(string Time, string CityCode, string StateCode, string TruckID)
+        
     }
 
+    public void SetVanType()
+    {
+        otherData.trailerType = truckType.Index.ToString();
+    }
+
+    public void SetStatus()
+    {
+        otherData.status = statusStage.Index.ToString();
+    }
+
+
+
+
+    public void SetDispatchStateCity()
+    {
+        dispPt.StateCode = DispatchRef.stateMenu.Index.ToString();
+        dispPt.CityCode = DispatchRef.cityMenu.Index.ToString();
+    }
+
+    public void SetPickUpStateCity()
+    {
+        startPt.StateCode = PickupRef.stateMenu.Index.ToString();
+        startPt.CityCode = PickupRef.cityMenu.Index.ToString();
+    }
+
+    public void SetDropOffStateCity()
+    {
+        endPt.StateCode = DropoffRef.stateMenu.Index.ToString();
+        endPt.CityCode = DropoffRef.cityMenu.Index.ToString();
+    }
+
+
+    public void SetDispatchTime()
+    {
+        //date first, then time
+        if (DispatchRef.amPm.Index == 0)
+        {
+            dispPt.Time = DispatchRef.date_month.Text + DispatchRef.date_day.Text + DispatchRef.date_year.Text + DispatchRef.time_hour.Text + DispatchRef.time_min.Text;
+        }
+        else
+        {
+            dispPt.Time = DispatchRef.date_month.Text + DispatchRef.date_day.Text + DispatchRef.date_year.Text + (int.Parse(DispatchRef.time_hour.Text) + 12).ToString() + DispatchRef.time_min.Text;
+        }
+
+    }
+
+    public void SetPickUpTime()
+    {
+        //date first, then time
+        if (PickupRef.amPm.Index == 0)
+        {
+            startPt.Time = PickupRef.date_month.Text + PickupRef.date_day.Text + PickupRef.date_year.Text + PickupRef.time_hour.Text + PickupRef.time_min.Text;
+        }
+        else
+        {
+            startPt.Time = PickupRef.date_month.Text + PickupRef.date_day.Text + PickupRef.date_year.Text + (int.Parse(PickupRef.time_hour.Text) + 12).ToString() + PickupRef.time_min.Text;
+        }
+
+
+
+    }
+
+
+    public void SetDropOffTime()
+    {
+        //date first, then time
+        if (DropoffRef.amPm.Index == 0)
+        {
+            endPt.Time = DropoffRef.date_month.Text + DropoffRef.date_day.Text + DropoffRef.date_year.Text + DropoffRef.time_hour.Text + DropoffRef.time_min.Text;
+        }
+        else
+        {
+            endPt.Time = DropoffRef.date_month.Text + DropoffRef.date_day.Text + DropoffRef.date_year.Text + (int.Parse(DropoffRef.time_hour.Text) + 12).ToString() + DropoffRef.time_min.Text;
+        }
+
+
+
+    }
 }
