@@ -28,6 +28,11 @@ public class LoadStatesAndCities : MonoBehaviour
         }
     }
 
+    void DoStates()
+    {
+        SetStates(ParseManager.GetStates(false));
+    }
+
     public void SetStates(List<string> allStates)
     {
         for (int i = 0; i < allStateCities.Count; i++)
