@@ -39,6 +39,10 @@ public class CBUG : MonoBehaviour {
 
     // Use this for initialization
     void Awake () {
+        if (GameObject.FindGameObjectsWithTag("CBUG").Length > 1)
+            CBUG.SrsError("There must be only one CBUG per scene!");
+
+
         logText = GetComponent<Text>();
         lines = new LinkedList<string>();
         occurrences = new LinkedList<int>();

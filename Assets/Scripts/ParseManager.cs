@@ -4,7 +4,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using FileHelpers;
-using System.Linq;
 
 /// <summary>
 /// Handles all parsing of the CSV for access by other classes.
@@ -51,8 +50,16 @@ public class ParseManager : MonoBehaviour {
     private bool dataLoaded;
     private int currentState;
     private int currentCity;
+    private Dictionary<string, int> StateNameToID;
+    private Dictionary<string, int> StateAbbrToID;
+    private List<City>[] cityDataByState;
     #endregion
 
+    #region Statics
+    public static bool DoneInstantiating = false;
+    #endregion
+
+    #region Subclasses
     [System.Serializable]
     private class City
     {
@@ -71,13 +78,13 @@ public class ParseManager : MonoBehaviour {
             this.StateAbbreviation = StateAbbreviation;
         }
     }
+    #endregion
 
-    private Dictionary<string, int> StateNameToID;
-    private Dictionary<string, int> StateAbbrToID;
-    private List<City>[] cityDataByState;
+    // Use this for initialization
+    void Start () {
+        if (GameObject.FindGameObjectsWithTag("ParseManager").Length > 1)
+            CBUG.SrsError("There must be only one ParseManager per scene!");
 
-	// Use this for initialization
-	void Start () {
         rootPath = Application.streamingAssetsPath;
         cityCSVPath = System.IO.Path.Combine(rootPath, CityCSV);
         CBUG.Do("CityCSVPath: " + cityCSVPath);
@@ -91,6 +98,9 @@ public class ParseManager : MonoBehaviour {
         engine_StateData = new FileHelperEngine<StateData>();
         StateNameToID = new Dictionary<string, int>();
         StateAbbrToID = new Dictionary<string, int>();
+        dataLoaded = false;
+        currentCity = -1;
+        currentState = 0;
         if (Application.isEditor)
         {
             _cityData = engine_CityData.ReadFile(cityCSVPath);
@@ -104,31 +114,34 @@ public class ParseManager : MonoBehaviour {
             StartCoroutine(loadCityDataWeb(cityCSVPath));
             StartCoroutine(loadStateDataWeb(stateCSVPath));
         }
-        dataLoaded = false;
-        currentCity = -1;
-        currentState = 0;
     }
 
     // Update is called once per frame
     void Update () {
-        if(_cityData == null && _cityData.Length > 0)
+        if(!DoneInstantiating)
         {
-            CBUG.Do("City Data not yet loaded.");
-        }
-        else
-        {
-            string temp = "Sampling CSV Data: " + _cityData[0].City + " in " + _cityData[0].State;
-            CBUG.Do(temp);
-        }
+            if (_cityData != null && _stateData != null && dataLoaded)
+                DoneInstantiating = true;
 
-        if (_stateData == null && _stateData.Length > 0)
-        {
-            CBUG.Do("State Data not yet loaded.");
-        }
-        else
-        {
-            string temp2 = "Sampling CSV Data: " + _stateData[0].State + " is " + _stateData[0].StateAbbreviation;
-            CBUG.Do(temp2);
+            if (_cityData == null && _cityData.Length > 0)
+            {
+                CBUG.Do("City Data not yet loaded.");
+            }
+            else
+            {
+                string temp = "Sampling CSV Data: " + _cityData[0].City + " in " + _cityData[0].State;
+                CBUG.Do(temp);
+            }
+
+            if (_stateData == null && _stateData.Length > 0)
+            {
+                CBUG.Do("State Data not yet loaded.");
+            }
+            else
+            {
+                string temp2 = "Sampling CSV Data: " + _stateData[0].State + " is " + _stateData[0].StateAbbreviation;
+                CBUG.Do(temp2);
+            }
         }
     }
 
@@ -204,7 +217,7 @@ public class ParseManager : MonoBehaviour {
             CBUG.Do("OUR LIBRARY DOESN'T WORK");
         else
         {
-            CBUG.Do("MMMDATALENGTH: " + _cityData.Length);
+            CBUG.Do("City DATA_LENGTH: " + _cityData.Length);
         }
     }
     private IEnumerator loadStateDataWeb(string path)
@@ -237,7 +250,10 @@ public class ParseManager : MonoBehaviour {
                 currentState++;
             }
             if (currentState >= TotalStates || currentCity >= _cityData.Length - 1)
+            {
                 dataLoaded = true;
+                CBUG.Do("Data Loaded!");
+            }
         }
     }
     #endregion

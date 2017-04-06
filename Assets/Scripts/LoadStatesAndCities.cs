@@ -13,20 +13,25 @@ public class LoadStatesAndCities : MonoBehaviour
 
     public List<StateCities> allStateCities;
 
+    public static bool DoneInstantiating;
+
     void Start()
     {
-        //List<string> stringy = new List<string>();
-        //stringy.Add("ahhah");
-        SetStates(ParseManager.GetStates(false));
-        //SetStates(stringy);
+    }
+
+    private void Update()
+    {
+        if(!DoneInstantiating && ParseManager.DoneInstantiating && URLLoader.DoneInstatiating)
+        {
+            DoneInstantiating = true;
+            SetStates(ParseManager.GetStates(false));
+        }
     }
 
     public void SetStates(List<string> allStates)
     {
         for (int i = 0; i < allStateCities.Count; i++)
         {
-
-
             allStateCities[i].States.startingItemList = allStates;
             allStateCities[i].States.ItemList = allStates;
             allStateCities[i].States.UpdateList();

@@ -5,9 +5,12 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Paul/SalesEndLayout.unity
     guid: 7aba38a502b094041b7bf367bb805625
   - enabled: 0
     path: Assets/Scenes/Paul/ClientEndLayout.unity
     guid: 4387e4c0e689004418c5a93f30653019
+  - enabled: 1
+    path: Assets/Scenes/Eliot/ParseTest.unity
+    guid: 41faa64827d79a745ba7224f1e32cedd

@@ -3,6 +3,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Runtime.InteropServices;
 
 /// <summary>
 /// Generates URL for reading and taking in.
@@ -17,14 +18,19 @@ using UnityEngine;
 /// </summary>
 public class URLLoader : MonoBehaviour {
 
-    public string RootURL; //Sample: http://paultproductions.com/trackerS2/
-    public static string URL; //Order: [date1][citycode1][statecode1][truckid1]...[dateX][citycodeX][statecodeX][truckidX]
-    //Example: trucktracker.com/app/?0401172340167345005987004021700401673451069870
-    // From April 1st, 2017 @ 2340, City 1673450, State 05, Truck ID 9870
-    // {1 Hour Travel To Destination, across State lines}
-    // To April 2nd, 2017 @ 0040, City 1673451, State 06, Truck ID 9870
-    public string TestURL;
+    #region Privates
+    private string rootURL; //Used for building the URL only.
+                            //Sample: http://paultproductions.com/trackerS2/
+    #endregion
 
+    #region Statics
+    public static string URL; //Order: [date1][citycode1][statecode1][truckid1]...[dateX][citycodeX][statecodeX][truckidX]
+                              //Example: trucktracker.com/app/?0401172340167345005987004021700401673451069870
+                              // From April 1st, 2017 @ 2340, City 1673450, State 05, Truck ID 9870
+                              // {1 Hour Travel To Destination, across State lines}
+                              // To April 2nd, 2017 @ 0040, City 1673451, State 06, Truck ID 9870
+    public static bool DoneInstatiating = false;
+    #endregion
 
     [System.Serializable]
     public class OneSetData
@@ -101,25 +107,32 @@ public class URLLoader : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        if (Application.isEditor)
-        {
-            CBUG.Do("Handed URL: " + TestURL);
-            _buildURL(_getDataFromURL().ToArray());
-            CBUG.Do("Retrieved URL: " + URL);
-        }
+        if (GameObject.FindGameObjectsWithTag("URLLoader").Length > 1)
+            CBUG.SrsError("There must be only one URLLoader per scene!");
+
+        //If the URL contains a '?' then everything before it is the root.
+        //If not, then everything is the root.
+        if (Application.absoluteURL.Contains("?"))
+            rootURL = Application.absoluteURL.Substring(0, Application.absoluteURL.LastIndexOf("?"));
+        else
+            rootURL = Application.absoluteURL;
+        DoneInstatiating = true;
     }
 
     // Update is called once per frame
     void Update () {
-		
 	}
 
+    /// <summary>
+    /// Creates the codified string representing all datapoints, assigns it to URLLoader.URL and returns it.
+    /// </summary>
+    /// <param name="AllPoints">The datapoints class with everything filled out.</param>
     #region Public Static Refs
-    public static void BuildURL(params DataPoint[] AllPoints)
+    public static string BuildURL(params DataPoint[] AllPoints)
     {
-        GameObject.FindGameObjectWithTag("URLLoader").GetComponent<URLLoader>()._buildURL(AllPoints);
+        return GameObject.FindGameObjectWithTag("URLLoader").GetComponent<URLLoader>()._buildURL(AllPoints);
     }
-    private void _buildURL(params DataPoint[] allPoints)
+    private string _buildURL(params DataPoint[] allPoints)
     {
         string URLTemp = "";
         //Order: [date1] [citycode1] [statecode1] [truckid1]
@@ -127,24 +140,25 @@ public class URLLoader : MonoBehaviour {
         {
             URLTemp += allPoints[x].Time + allPoints[x].CityCode + allPoints[x].StateCode + allPoints[x].TruckID;
         }
-        URL = RootURL + "?" + URLTemp;
+        URL = rootURL + "?" + URLTemp;
+        return URL;
     }
 
     /// <summary>
-    /// For reading the URL arguments and building the scene for the client.
+    /// Converts the codified information from the URL into DataPoints.
+    /// This function assumes that the URL contains a querry string (? + code) and if not,
+    /// will throw an error. Called without a parameter, it'll use the Absolute URL.
     /// </summary>
-    /// <returns>Usable DataPoint struct.</returns>
-    public static List<DataPoint> GetDataFromURL()
+    /// <param name="URL">Optional Full URL + Querry String</param>
+    /// <returns>The code converted into a list of usable DataPoints</returns>
+    public static List<DataPoint> GetDataFrom([Optional] string URL)
     {
-        return GameObject.FindGameObjectWithTag("URLLoader").GetComponent<URLLoader>()._getDataFromURL();
+        if (URL == null)
+            URL = Application.absoluteURL;
+        return GameObject.FindGameObjectWithTag("URLLoader").GetComponent<URLLoader>()._getDataFromURL(URL);
     }
-    private List<DataPoint> _getDataFromURL()
+    private List<DataPoint> _getDataFromURL(string url)
     {
-        string url = Application.absoluteURL;
-
-        if (Application.isEditor)
-            url = TestURL;
-
         if(checkFormat(url) == false)
         {
             CBUG.SrsError("BAD URL! Didn't pass format check!: " + url);
