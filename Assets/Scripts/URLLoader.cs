@@ -121,6 +121,7 @@ public class URLLoader : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+
 	}
 
     /// <summary>
